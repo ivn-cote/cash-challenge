@@ -10,6 +10,8 @@ import routes from '../../routes';
 // Import your global styles here
 import '../../theme/normalize.css';
 import styles from './styles.scss';
+import Hardware from '../Hardware';
+import Screen from 'components/Screen';
 
 export default () => {
   // Use it when sub routes are added to any route it'll work
@@ -30,12 +32,15 @@ export default () => {
       <Helmet {...config.app} />
       <div className={styles.header}>
         <h1>{config.app.title}</h1>
-        ivn
       </div>
-      <hr />
-      <Switch>
-        {routes.map(route => routeWithSubRoutes(route))}
-      </Switch>
+
+      <Screen>
+        <Switch>
+          {routes.map(route => routeWithSubRoutes(route))}
+        </Switch>
+      </Screen>
+
+      <Hardware />
     </div>
   );
 };

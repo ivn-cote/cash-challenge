@@ -1,0 +1,43 @@
+.receiver {
+  position: relative;
+  padding: 0 60px;
+}
+
+.plugin {
+  transform: rotate(90deg);
+  width: 100px;
+  position: absolute;
+  right: -100px;
+  top: 100px;
+  cursor: pointer;
+
+  &:disabled {
+    opacity: 0.1;
+  }
+}
+
+.slot {
+  border-top: 3px solid #fff;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  overflow: hidden;
+  height: 150px;
+}
+
+.slotM {
+  transition: transform 0.3s;
+  perspective: 300px;
+  transform: translateY(0);
+}
+
+.card {
+  transform: rotateX(45deg) rotate(90deg);
+  width: 150px;
+  height: 90px;
+  background-color: rgba(255,255,255,0.3);
+  border-radius: 5px;
+  text-align: center;
+  padding: 10px;
+  box-sizing: border-box;
+}

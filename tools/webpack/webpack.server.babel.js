@@ -76,6 +76,9 @@ module.exports = {
     moduleExtensions: ['-loader'],
   },
   resolve: {
+    alias: {
+      components: path.resolve(__dirname, '../../src/components/'),
+    },
     modules: ['src', 'node_modules'],
     descriptionFiles: ['package.json'],
     moduleExtensions: ['-loader'],

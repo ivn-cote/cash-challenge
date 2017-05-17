@@ -32,7 +32,6 @@ const getPlugins = () => {
       },
     }),
     // Style lint
-    new StyleLintPlugin({ syntax: 'scss', failOnError: stylelint }),
     // Setup enviorment variables for client
     new webpack.EnvironmentPlugin({ NODE_ENV: JSON.stringify(nodeEnv) }),
     // Setup global variables for client
@@ -210,6 +209,9 @@ module.exports = {
     moduleExtensions: ['-loader'],
   },
   resolve: {
+    alias: {
+      components: path.resolve(__dirname, '../../src/components/'),
+    },
     modules: ['src', 'node_modules'],
     descriptionFiles: ['package.json'],
     moduleExtensions: ['-loader'],

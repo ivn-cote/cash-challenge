@@ -2,7 +2,7 @@ import React from 'react';
 import renderer from 'react-test-renderer';
 import { StaticRouter } from 'react-router-dom';
 
-import Keypad from '../index';
+import Keypad from '../keypad';
 
 describe('<Keypad />', () => {
   test('renders', () => {

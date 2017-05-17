@@ -1,0 +1,16 @@
+$key_w: 40px;
+
+.keypad {
+  display: flex;
+  color: blue;
+  width: $key_w * 3.5;
+  flex-wrap: wrap;
+  justify-content: center;
+
+  .key {
+    width: $key_w;
+    appearance: none;
+    border: none;
+    margin: 2px;
+  }
+}

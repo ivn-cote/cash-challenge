@@ -35,6 +35,8 @@ export class Home extends PureComponent {
     return (
       <div className={styles.Home}>
         <Helmet title="Home" />
+        <h3>IVN BANK</h3>
+        <p>You can get money in cash here! Please insert your card</p>
       </div>
     );
   }

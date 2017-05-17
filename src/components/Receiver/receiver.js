@@ -1,0 +1,59 @@
+import React, { PureComponent } from 'react';
+import _noop from 'lodash/noop';
+
+import styles from './receiver.scss';
+
+const MIN_TICK = 0;
+const MAX_TICK = 5;
+
+export class Receiver extends PureComponent {
+  constructor(props) {
+    super(props);
+    this.state = {
+      plugLevel: MAX_TICK,
+    };
+    this.watchPlug = this.watchPlug.bind(this);
+  }
+
+  componentWillReceiveProps(nextProps) {
+    nextProps.isPlugged && this.setState({ plugLevel: MIN_TICK });
+  }
+
+  watchPlug(evt) {
+    const { handlePlug = _noop } = this.props;
+    const plugLevel = evt.target.value;
+    this.setState({ plugLevel });
+    plugLevel == MIN_TICK && handlePlug();
+  }
+
+  render() {
+    const { plugLevel } = this.state;
+    const { isPlugged = false } = this.props;
+
+    return (
+      <div className={styles.receiver}>
+        <p>Please insert your card</p>
+
+        <div className={styles.slot}>
+          <div className={styles.slotM} style={{ transform: `translateY(${(MAX_TICK - plugLevel) * -19}px)` }}>
+            <div className={styles.card}>
+              ivn bank
+            </div>
+          </div>
+        </div>
+
+        <input
+          className={styles.plugin}
+          type="range"
+          disabled={isPlugged}
+          defaultValue={MAX_TICK}
+          min={MIN_TICK}
+          max={MAX_TICK}
+          onChange={this.watchPlug}
+        />
+      </div>
+    );
+  }
+}
+
+export default Receiver;
