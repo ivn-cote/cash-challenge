@@ -1,37 +1,29 @@
-import React, { PureComponent } from 'react';
+import React from 'react';
+import { PropTypes } from 'prop-types';
 import { connect } from 'react-redux';
 import Keypad from 'components/Keypad';
 import Receiver from 'components/Receiver';
 
-// import * as action from './action';
+import * as actions from './hardwareActions';
 import styles from './hardware.scss';
 
-export class Hardware extends PureComponent {
-  constructor(props) {
-    super(props);
-    this.state = {
-      plugged: false,
-    };
-    this.blockReceiver = this.blockReceiver.bind(this);
-  }
+const Hardware = ({ plugged, insertCard }) => (
+  <div className={styles.hardware}>
+    <Keypad />
+    <Receiver isPlugged={plugged} handlePlug={insertCard} />
+  </div>
+);
 
-  blockReceiver() {
-    this.setState({ plugged: true });
-  }
+Hardware.propTypes = {
+  plugged: PropTypes.bool.isRequired,
+  insertCard: PropTypes.func.isRequired,
+};
 
-
-  render() {
-    const { plugged } = this.state;
-    return (
-      <div className={styles.hardware}>
-        <Keypad />
-        <Receiver isPlugged={plugged} handlePlug={this.blockReceiver} />
-      </div>
-    );
-  }
-}
 const connector = connect(
-  ({ home }) => ({ home }),
+  ({ hardware }) => ({ ...hardware }),
+  dispatch => ({
+    insertCard: () => dispatch(actions.insertCard()) && dispatch(actions.askForPin()),
+  }),
 );
 
 export default connector(Hardware);

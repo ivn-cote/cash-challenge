@@ -23,7 +23,7 @@ Key.defaultProps = {
 
 const Keypad = ({ handleKey }) => (
   <div className={styles.keypad}>
-    {[...new Array(10)].map((_, ind) => <Key key={ind} label={ind} onClick={handleKey} />)}
+    {[...new Array(10)].map((_, ind) => <Key key={ind} label={`${ind}`} onClick={handleKey} />)}
   </div>
 );
 

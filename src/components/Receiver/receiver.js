@@ -11,7 +11,7 @@ export class Receiver extends PureComponent {
   constructor(props) {
     super(props);
     this.state = {
-      plugLevel: MAX_TICK,
+      plugLevel: props.isPlugged ? MIN_TICK : MAX_TICK,
     };
     this.watchPlug = this.watchPlug.bind(this);
   }
@@ -47,7 +47,7 @@ export class Receiver extends PureComponent {
           className={styles.plugin}
           type="range"
           disabled={isPlugged}
-          defaultValue={MAX_TICK}
+          value={plugLevel}
           min={MIN_TICK}
           max={MAX_TICK}
           onChange={this.watchPlug}
