@@ -3,8 +3,8 @@
 const path = require('path');
 const webpack = require('webpack');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
-const StyleLintPlugin = require('stylelint-webpack-plugin');
-const { CSSModules, eslint, stylelint, vendor } = require('./config');
+// const StyleLintPlugin = require('stylelint-webpack-plugin');
+const { CSSModules, eslint, vendor } = require('./config');
 
 const nodeEnv = process.env.NODE_ENV || 'development';
 const isDev = nodeEnv !== 'production';

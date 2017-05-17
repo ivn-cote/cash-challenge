@@ -4,14 +4,13 @@ import React from 'react';
 import { Route, Switch } from 'react-router-dom';
 import Helmet from 'react-helmet';
 import _ from 'lodash';
-
+import Screen from 'components/Screen';
 import config from '../../config';
 import routes from '../../routes';
 // Import your global styles here
 import '../../theme/normalize.css';
 import styles from './styles.scss';
 import Hardware from '../Hardware';
-import Screen from 'components/Screen';
 
 export default () => {
   // Use it when sub routes are added to any route it'll work

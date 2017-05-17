@@ -1,3 +1,1 @@
-import Receiver from './receiver';
-
-export default Receiver;
+export default from './receiver';

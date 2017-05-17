@@ -1,3 +1,1 @@
-import Hardware from './hardware';
-
-export default Hardware;
+export default from './hardware';

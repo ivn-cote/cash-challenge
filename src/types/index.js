@@ -1,6 +1,6 @@
 /* @flow */
 
-import type { Store as ReduxStore } from 'redux';
+// import type { Store as ReduxStore } from 'redux';
 
 export type Home = {
   readyStatus: string,

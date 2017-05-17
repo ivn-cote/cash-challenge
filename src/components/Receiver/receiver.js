@@ -1,4 +1,5 @@
 import React, { PureComponent } from 'react';
+import { PropTypes } from 'prop-types';
 import _noop from 'lodash/noop';
 
 import styles from './receiver.scss';
@@ -20,7 +21,7 @@ export class Receiver extends PureComponent {
   }
 
   watchPlug(evt) {
-    const { handlePlug = _noop } = this.props;
+    const { handlePlug } = this.props;
     const plugLevel = evt.target.value;
     this.setState({ plugLevel });
     plugLevel == MIN_TICK && handlePlug();
@@ -28,7 +29,7 @@ export class Receiver extends PureComponent {
 
   render() {
     const { plugLevel } = this.state;
-    const { isPlugged = false } = this.props;
+    const { isPlugged } = this.props;
 
     return (
       <div className={styles.receiver}>
@@ -55,5 +56,15 @@ export class Receiver extends PureComponent {
     );
   }
 }
+
+Receiver.propTypes = {
+  isPlugged: PropTypes.bool,
+  handlePlug: PropTypes.func,
+};
+
+Receiver.defaultProps = {
+  isPlugged: false,
+  handlePlug: _noop,
+};
 
 export default Receiver;

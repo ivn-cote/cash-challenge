@@ -1,6 +1,6 @@
 /* @flow */
 
-import type { Dispatch } from './types';
+// import type { Dispatch } from './types';
 import HomePage from './containers/Home';
 import NotFoundPage from './containers/NotFound';
 
