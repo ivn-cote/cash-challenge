@@ -5,7 +5,7 @@ $key_w: 40px;
   color: blue;
   width: $key_w * 3.5;
   flex-wrap: wrap;
-  justify-content: center;
+  justify-content: flex-end;
 
   .key {
     cursor: pointer;
@@ -13,5 +13,10 @@ $key_w: 40px;
     appearance: none;
     border: none;
     margin: 2px;
+  }
+
+  .delBtn {
+    opacity: 0.6;
+    color: #fff;
   }
 }
