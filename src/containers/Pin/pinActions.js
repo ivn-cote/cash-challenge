@@ -1,3 +1,6 @@
+import { push } from 'react-router-redux';
+import { urlPaths } from '../../routes';
+
 export const PIN_DIGIT_ENTER = 'PIN_DIGIT_ENTER';
 export const PIN_BACKSPACE = 'PIN_BACKSPACE';
 export const PIN_CHECK_STARTED = 'PIN_CHECK_STARTED';
@@ -15,4 +18,11 @@ export const correctPinDigit = () => ({
 
 export const checkPin = () => (dispatch) => {
   dispatch({ type: PIN_CHECK_STARTED });
+  setTimeout(
+    () => {
+      dispatch({ type: PIN_CHECK_SUCCESS });
+      dispatch(push(urlPaths.home));
+    },
+    1000,
+  );
 };
