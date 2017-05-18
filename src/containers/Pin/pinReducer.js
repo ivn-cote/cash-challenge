@@ -22,7 +22,9 @@ export default (state = initialState, action) => {
         ? _.assign({}, state, { pinCode: state.pinCode.concat(action.payload) })
         : state;
     case PIN_BACKSPACE:
-      return _.assign({}, state, { pinCode: state.pinCode.slice(0, -1), status: 'input' });
+      return pinCode.length > 0
+        ? _.assign({}, state, { pinCode: state.pinCode.slice(0, -1), status: 'input' })
+        : state;
     case PIN_CHECK_STARTED:
       return _.assign({}, state, { status: 'pending' });
     case PIN_CHECK_SUCCESS:

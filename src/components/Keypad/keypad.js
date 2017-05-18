@@ -26,15 +26,16 @@ Key.defaultProps = {
   onClick: _noop,
 };
 
-const Keypad = ({ handleKey }) => (
+const Keypad = ({ handleKey, handleDel }) => (
   <div className={styles.keypad}>
     {[...new Array(10)].map((_, ind) => <Key key={ind} label={`${(ind + 1) % 10}`} onClick={handleKey} />)}
-    <Key label="del" onClick={_noop} className={styles.delBtn} />
+    <Key label="del" onClick={handleDel} className={styles.delBtn} />
   </div>
 );
 
 Keypad.propTypes = {
   handleKey: PropTypes.func.isRequired,
+  handleDel: PropTypes.func.isRequired,
 };
 
 export default Keypad;
