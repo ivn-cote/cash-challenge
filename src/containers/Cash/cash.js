@@ -20,7 +20,7 @@ const Cash = ({ amount, onOptionSelected }) => (
     {
       amount
         ? <h2>You have selected to withdrawal {amount} €, press OK to continue</h2>
-        : <p>Please select amount of withdrawal</p>
+        : <h2>Please select amount of withdrawal</h2>
     }
     <Options options={cashOptions} chooseHandler={onOptionSelected} />
   </div>

@@ -33,7 +33,11 @@ export class Receiver extends PureComponent {
 
     return (
       <div className={styles.receiver}>
-        <p>Please insert your card</p>
+        {
+          isPlugged
+            ? <p>Press Cancel to eject the card</p>
+            : <p>Please insert your card</p>
+        }
 
         <div className={styles.slot}>
           <div className={styles.slotM} style={{ transform: `translateY(${(MAX_TICK - plugLevel) * -19}px)` }}>
