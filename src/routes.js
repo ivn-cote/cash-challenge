@@ -2,6 +2,7 @@
 
 // import type { Dispatch } from './types';
 import HomePage from './containers/Home';
+import PinPage from './containers/Pin';
 import NotFoundPage from './containers/NotFound';
 
 export const urlPaths = {
@@ -21,7 +22,7 @@ export default [
   {
     path: urlPaths.pin,
     exact: true,
-    component: HomePage,  // Add your route here
+    component: PinPage,  // Add your route here
   },
   {
     path: '*',
