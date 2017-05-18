@@ -1,0 +1,20 @@
+$btn-w: 120px;
+
+.options {
+  position: relative;
+  display: flex;
+  flex-wrap: wrap;
+  width: $btn-w * 2.5;
+  padding: 0 10px;
+}
+
+.optionBtn {
+  appearance: none;
+  cursor: pointer;
+  border: none;
+  height: 40px;
+  width: $btn-w;
+  border-radius: 4px;
+  text-align: center;
+  margin: 5px;
+}
