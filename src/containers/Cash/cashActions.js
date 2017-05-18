@@ -11,5 +11,8 @@ export const selectCashOption = data => ({
 
 export const confirmWithdrawal = () => (dispatch) => {
   dispatch({ type: CONFIRM_AMOUNT });
-  dispatch(push(urlPaths.home));
+  setTimeout(
+    () => dispatch(push(urlPaths.home)),
+    3000,
+  );
 };

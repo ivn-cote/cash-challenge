@@ -17,7 +17,7 @@ export class Receiver extends PureComponent {
   }
 
   componentWillReceiveProps(nextProps) {
-    nextProps.isPlugged && this.setState({ plugLevel: MIN_TICK });
+    this.setState({ plugLevel: nextProps.isPlugged ? MIN_TICK : MAX_TICK });
   }
 
   watchPlug(evt) {

@@ -11,6 +11,7 @@ import {
   startInteractive,
   stopInteractive,
   insertCard,
+  ejectCard,
   askForPin,
 } from './hardwareActions';
 import { enterPinDigit, correctPinDigit, checkPin } from '../Pin/pinActions';
@@ -74,7 +75,10 @@ const connector = connect(
   ({ hardware, pin: { status }, cash: { confirmed } }) =>
     ({ ...hardware, pinStatus: status, cashConfirmed: confirmed }),
   dispatch => ({
-    giveCash: () => dispatch(confirmWithdrawal()),
+    giveCash: () => {
+      dispatch(confirmWithdrawal());
+      dispatch(ejectCard());
+    },
     handlePin: () => dispatch(checkPin()),
     onConfirm: () => {
       dispatch(confirmInput());

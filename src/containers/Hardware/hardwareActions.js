@@ -2,6 +2,7 @@ import { push } from 'react-router-redux';
 import { urlPaths } from '../../routes';
 
 export const CARD_INSERTED = 'CARD_INSERTED';
+export const CARD_EJECTED = 'CARD_EJECTED';
 export const INTERACTIVE_ON = 'INTERACTIVE_ON';
 export const INTERACTIVE_OFF = 'INTERACTIVE_OFF';
 export const CONFIRM = 'CONFIRM';
@@ -12,6 +13,10 @@ export const confirmInput = () => ({
 
 export const insertCard = () => ({
   type: CARD_INSERTED,
+});
+
+export const ejectCard = () => ({
+  type: CARD_EJECTED,
 });
 
 export const startInteractive = () => ({
