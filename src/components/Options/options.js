@@ -18,16 +18,16 @@ const Options = ({ options, chooseHandler }) => (
   <div className={styles.options}>
     {
       options.map(({ title, data }) =>
-        <OptionBtn title={title} onClick={_partial(chooseHandler, data)} />)
+        <OptionBtn key={title} title={title} onClick={_partial(chooseHandler, data)} />)
     }
   </div>
 );
 
 Options.propTypes = {
-  options: PropTypes.shape({
+  options: PropTypes.arrayOf(PropTypes.shape({
     title: PropTypes.string,
-    data: PropTypes.string,
-  }).isRequired,
+    data: PropTypes.number,
+  })).isRequired,
   chooseHandler: PropTypes.func.isRequired,
 };
 

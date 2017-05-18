@@ -3,6 +3,7 @@ import { PropTypes } from 'prop-types';
 import { connect } from 'react-redux';
 import Options from 'components/Options';
 import { selectCashOption } from './cashActions';
+import { startInteractive } from '../Hardware/hardwareActions';
 
 import styles from './cash.scss';
 
@@ -34,7 +35,10 @@ Cash.propTypes = {
 const connector = connect(
   ({ cash }) => ({ ...cash }),
   dispatch => ({
-    onOptionSelected: amount => dispatch(selectCashOption(amount)),
+    onOptionSelected: (amount) => {
+      dispatch(selectCashOption(amount));
+      dispatch(startInteractive());
+    },
   }),
 );
 
