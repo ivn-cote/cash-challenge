@@ -21,7 +21,7 @@ export const checkPin = () => (dispatch) => {
   setTimeout(
     () => {
       dispatch({ type: PIN_CHECK_SUCCESS });
-      dispatch(push(urlPaths.home));
+      dispatch(push(urlPaths.withdrawal));
     },
     1000,
   );
