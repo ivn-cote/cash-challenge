@@ -15,9 +15,12 @@ const initialState = {
 };
 
 export default (state = initialState, action) => {
+  const { pinCode } = state;
   switch (action.type) {
     case PIN_DIGIT_ENTER:
-      return _.assign({}, state, { pinCode: state.pinCode.concat(action.payload) });
+      return pinCode.length < 4
+        ? _.assign({}, state, { pinCode: state.pinCode.concat(action.payload) })
+        : state;
     case PIN_BACKSPACE:
       return _.assign({}, state, { pinCode: state.pinCode.slice(0, -1), status: 'input' });
     case PIN_CHECK_STARTED:

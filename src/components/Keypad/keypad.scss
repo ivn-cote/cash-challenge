@@ -8,6 +8,7 @@ $key_w: 40px;
   justify-content: center;
 
   .key {
+    cursor: pointer;
     width: $key_w;
     appearance: none;
     border: none;
