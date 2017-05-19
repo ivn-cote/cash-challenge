@@ -1,4 +1,5 @@
 import React from 'react';
+import Helmet from 'react-helmet';
 import { PropTypes } from 'prop-types';
 import { connect } from 'react-redux';
 import Options from 'components/Options';
@@ -22,6 +23,7 @@ const Cash = ({ amount, confirmed, onOptionSelected }) => (
       <h2>Please take your card and money. Have a nice day!</h2>
     </div> :
     <div className={styles.cash}>
+      <Helmet title="Withdrawal" />
       {
         amount
           ? <h2>You have selected to withdrawal {amount} €, press OK to continue</h2>
