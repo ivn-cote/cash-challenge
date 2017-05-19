@@ -28,9 +28,15 @@ export default (state = initialState, action) => {
     case PIN_CHECK_STARTED:
       return _.assign({}, state, { status: 'pending' });
     case PIN_CHECK_SUCCESS:
-      return _.assign({}, state, { status: 'success' });
+      return _.assign({}, state, { status: 'success', pinCode: [] });
     case PIN_CHECK_FAILURE:
-      return _.assign({}, state, { status: 'failure' });
+      return _.assign({}, state, {
+        pinCode: [],
+        status: 'input',
+        errors: {
+          check: action.payload,
+        },
+      });
     default:
       return state;
   }

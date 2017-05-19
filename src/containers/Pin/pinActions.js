@@ -16,13 +16,36 @@ export const correctPinDigit = () => ({
   type: PIN_BACKSPACE,
 });
 
-export const checkPin = () => (dispatch) => {
+const pinErrMsg = 'PIN does not match, try again';
+const VALID_PIN = '1234';
+
+// we need to limit attempts to enter pin
+const pinChecker = pinCode =>
+  new Promise((resolve, reject) => {
+    setTimeout(
+      () => {
+        if (pinCode === VALID_PIN) {
+          resolve();
+        } else {
+          reject(pinErrMsg);
+        }
+      },
+      2000,
+    );
+  });
+
+export const checkPin = (callback) => (dispatch, getState) => {
   dispatch({ type: PIN_CHECK_STARTED });
-  setTimeout(
-    () => {
+  return pinChecker(getState().pin.pinCode.join(''))
+    .then(() => {
       dispatch({ type: PIN_CHECK_SUCCESS });
       dispatch(push(urlPaths.withdrawal));
-    },
-    1000,
-  );
+      callback();
+    })
+    .catch((errMsg) => {
+      dispatch({
+        type: PIN_CHECK_FAILURE,
+        payload: errMsg,
+      });
+    });
 };

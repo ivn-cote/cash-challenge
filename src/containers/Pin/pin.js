@@ -14,9 +14,9 @@ const Pin = ({ pinCode, status, errors }) => (
     <p>Please enter your PIN</p>
     {
       !_isEmpty(errors)
-        && _map(errors, (key, val) => <div key={key} className={styles.error}>{val}</div>)
+        && _map(errors, (val, key) => <div key={key} className={styles.error}>{val}</div>)
     }
-    PINCODE: {pinCode.join(' ')}
+    PINCODE: {(new Array(pinCode.length)).fill('*')}
     {
       status === 'pending'
         && <div className={styles.wait} />

@@ -55,9 +55,9 @@ class Hardware extends PureComponent {
     }
 
     if (interactiveMode) {
-      onConfirm();
+      // onConfirm();
       if (pinStatus === 'input') {
-        handlePin();
+        handlePin(onConfirm);
       } else if (!cashConfirmed) {
         giveCash();
       }
@@ -118,7 +118,7 @@ const connector = connect(
       dispatch(confirmWithdrawal());
       dispatch(ejectCard());
     },
-    handlePin: () => dispatch(checkPin()),
+    handlePin: onOk => dispatch(checkPin(onOk)),
     onConfirm: () => {
       dispatch(confirmInput());
       dispatch(stopInteractive());
