@@ -34,11 +34,16 @@ $highest-z-index: 10;
   }
 }
 
-.abortLink {
+.abortLink, .backLink {
   position: absolute;
   right: 0;
-  bottom: 100px;
   padding: 20px;
   background-color: gray;
   border-radius: 4px 0 0 4px;
+}
+.abortLink {
+  bottom: 100px;
+}
+.backLink {
+  top: 60px;
 }
