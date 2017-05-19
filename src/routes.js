@@ -1,10 +1,8 @@
-/* @flow */
-
-// import type { Dispatch } from './types';
 import HomePage from './containers/Home';
 import AbortPage from './containers/Abort';
 import PinPage from './containers/Pin';
 import CashPage from './containers/Cash';
+import CustomCashPage from './containers/CustomCash';
 import NotFoundPage from './containers/NotFound';
 
 export const urlPaths = {
@@ -12,6 +10,7 @@ export const urlPaths = {
   abort: '/abort',
   pin: '/pin',
   withdrawal: '/withdrawal',
+  withdrawalCustom: '/withdrawal/custom',
 };
 
 export default [
@@ -19,9 +18,6 @@ export default [
     path: urlPaths.home,
     exact: true,
     component: HomePage,
-    // loadData: (dispatch: Dispatch) => Promise.all([
-    //   dispatch(fetchUsersIfNeeded()), // Register your server-side call action(s) here
-    // ]),
   },
   {
     path: urlPaths.abort,
@@ -37,6 +33,11 @@ export default [
     path: urlPaths.withdrawal,
     exact: true,
     component: CashPage,
+  },
+  {
+    path: urlPaths.withdrawalCustom,
+    exact: true,
+    component: CustomCashPage,
   },
   {
     path: '*',

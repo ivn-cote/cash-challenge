@@ -16,7 +16,7 @@ import {
   askForAbort,
 } from './hardwareActions';
 import { enterPinDigit, correctPinDigit, checkPin } from '../Pin/pinActions';
-import { confirmWithdrawal } from '../Cash/cashActions';
+import { confirmWithdrawal, enterAmountDigit, correctAmountDigit } from '../Cash/cashActions';
 
 import styles from './hardware.scss';
 
@@ -39,6 +39,7 @@ class Hardware extends PureComponent {
   // I'm not sure harware should be so smart
   handleConfirm() {
     const {
+      customAmountStatus,
       interactiveMode,
       pinStatus,
       cashConfirmed,
@@ -55,27 +56,35 @@ class Hardware extends PureComponent {
     }
 
     if (interactiveMode) {
-      // onConfirm();
       if (pinStatus === 'input') {
         handlePin(onConfirm);
+      } else if (customAmountStatus === 'on') {
+        onContinue();
       } else if (!cashConfirmed) {
         giveCash();
+        onConfirm();
       }
     }
   }
 
   render() {
     const {
+      pinStatus,
       plugged,
-      onCardInserted, onKeyPressed, onDelPressed,
+      onCardInserted, onPinKeyPressed, onPinDelPressed, onAmountKeyPressed, onAmountDelPressed,
     } = this.props;
+    const isPinActive = pinStatus === 'input';
+
     // I prefer @autobind decorators in real production projects
     const handleConfirm = () => this.handleConfirm();
     const handleCancel = () => this.handleCancel();
 
     return (
       <div className={styles.hardware}>
-        <Keypad handleKey={onKeyPressed} handleDel={onDelPressed} />
+        <Keypad
+          handleKey={isPinActive ? onPinKeyPressed : onAmountKeyPressed}
+          handleDel={isPinActive ? onPinDelPressed : onAmountDelPressed}
+        />
         <YNpanel onCancel={handleCancel} onConfirm={handleConfirm} />
         <Receiver isPlugged={plugged} handlePlug={onCardInserted} />
       </div>
@@ -84,6 +93,7 @@ class Hardware extends PureComponent {
 }
 
 Hardware.propTypes = {
+  customAmountStatus: PropTypes.string.isRequired,
   abortMode: PropTypes.bool.isRequired,
   interactiveMode: PropTypes.bool.isRequired,
   plugged: PropTypes.bool.isRequired,
@@ -96,13 +106,24 @@ Hardware.propTypes = {
   onContinue: PropTypes.func.isRequired,
   onCancel: PropTypes.func.isRequired,
   onAbort: PropTypes.func.isRequired,
-  onKeyPressed: PropTypes.func.isRequired,
-  onDelPressed: PropTypes.func.isRequired,
+  onPinKeyPressed: PropTypes.func.isRequired,
+  onAmountKeyPressed: PropTypes.func.isRequired,
+  onPinDelPressed: PropTypes.func.isRequired,
+  onAmountDelPressed: PropTypes.func.isRequired,
 };
 
 const connector = connect(
-  ({ hardware, pin: { status }, cash: { confirmed } }) =>
-    ({ ...hardware, pinStatus: status, cashConfirmed: confirmed }),
+  ({
+    hardware,
+    pin: { status },
+    cash: { confirmed, customAmountStatus },
+  }) => ({
+    ...hardware,
+    pinStatus: status,
+    cashConfirmed: confirmed,
+    customAmountStatus,
+  }),
+
   dispatch => ({
     onCancel: () => {
       dispatch(askForAbort());
@@ -122,8 +143,10 @@ const connector = connect(
       dispatch(confirmInput());
       dispatch(stopInteractive());
     },
-    onDelPressed: () => dispatch(correctPinDigit()),
-    onKeyPressed: data => dispatch(enterPinDigit(data)),
+    onPinDelPressed: () => dispatch(correctPinDigit()),
+    onAmountDelPressed: () => dispatch(correctAmountDigit()),
+    onPinKeyPressed: data => dispatch(enterPinDigit(data)),
+    onAmountKeyPressed: data => dispatch(enterAmountDigit(data)),
     onCardInserted: () => {
       dispatch(insertCard());
       dispatch(askForPin());
