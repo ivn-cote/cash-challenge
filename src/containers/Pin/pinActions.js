@@ -8,6 +8,7 @@ export const PIN_BACKSPACE = 'PIN_BACKSPACE';
 export const PIN_CHECK_STARTED = 'PIN_CHECK_STARTED';
 export const PIN_CHECK_SUCCESS = 'PIN_CHECK_SUCCESS';
 export const PIN_CHECK_FAILURE = 'PIN_CHECK_FAILURE';
+export const PIN_CLEAR = 'PIN_CLEAR';
 
 export const enterPinDigit = data => ({
   type: PIN_DIGIT_ENTER,
@@ -16,6 +17,10 @@ export const enterPinDigit = data => ({
 
 export const correctPinDigit = () => ({
   type: PIN_BACKSPACE,
+});
+
+export const securePIN = () => ({
+  type: PIN_CLEAR,
 });
 
 const pinErrMsg = 'PIN does not match, try again';
@@ -36,7 +41,7 @@ const pinChecker = pinCode =>
     );
   });
 
-export const checkPin = (callback) => (dispatch, getState) => {
+export const checkPin = callback => (dispatch, getState) => {
   dispatch({ type: PIN_CHECK_STARTED });
   dispatch(setWait(true));
 

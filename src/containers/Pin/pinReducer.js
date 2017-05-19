@@ -1,6 +1,7 @@
 import _ from 'lodash';
 
 import {
+  PIN_CLEAR,
   PIN_DIGIT_ENTER,
   PIN_BACKSPACE,
   PIN_CHECK_STARTED,
@@ -33,6 +34,9 @@ export default (state = initialState, action) => {
           errors: {},
         })
         : state;
+
+    case PIN_CLEAR:
+      return initialState;
 
     case PIN_CHECK_STARTED:
       return _.assign({}, state, { status: 'pending' });

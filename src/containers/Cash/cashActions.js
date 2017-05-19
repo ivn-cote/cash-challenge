@@ -4,6 +4,11 @@ import { setWait } from '../Screen/screenActions';
 
 export const SELECT_AMOUNT = 'SELECT_AMOUNT';
 export const CONFIRM_AMOUNT = 'CONFIRM_AMOUNT';
+export const CLEAR_AMOUNT = 'CLEAR_AMOUNT';
+
+export const clearCash = () => ({
+  type: CLEAR_AMOUNT,
+});
 
 export const selectCashOption = data => ({
   type: SELECT_AMOUNT,
