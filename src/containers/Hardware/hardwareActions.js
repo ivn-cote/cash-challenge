@@ -6,6 +6,12 @@ export const CARD_EJECTED = 'CARD_EJECTED';
 export const INTERACTIVE_ON = 'INTERACTIVE_ON';
 export const INTERACTIVE_OFF = 'INTERACTIVE_OFF';
 export const CONFIRM = 'CONFIRM';
+export const ABORT = 'ABORT';
+
+export const toggleAbort = mode => ({
+  type: ABORT,
+  payload: mode,
+});
 
 export const confirmInput = () => ({
   type: CONFIRM,
@@ -29,4 +35,8 @@ export const stopInteractive = () => ({
 
 export const askForPin = () => (dispatch) => {
   dispatch(push(urlPaths.pin));
+};
+
+export const askForAbort = () => (dispatch) => {
+  dispatch(push(urlPaths.abort));
 };

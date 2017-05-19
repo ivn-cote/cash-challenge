@@ -1,6 +1,7 @@
 import _ from 'lodash';
 
 import {
+  ABORT,
   CONFIRM,
   CARD_INSERTED,
   CARD_EJECTED,
@@ -12,6 +13,7 @@ const initialState = {
   plugged: false,
   confirmed: false,
   interactiveMode: false,
+  abortMode: false,
 };
 
 export default (state = initialState, action) => {
@@ -26,6 +28,8 @@ export default (state = initialState, action) => {
       return _.assign({}, state, { interactiveMode: false, confirmed: false });
     case CONFIRM:
       return _.assign({}, state, { confirmed: true });
+    case ABORT:
+      return _.assign({}, state, { abortMode: action.payload });
     default:
       return state;
   }

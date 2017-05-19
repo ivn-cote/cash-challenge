@@ -1,5 +1,5 @@
 import React, { PureComponent } from 'react';
-import _noop from 'lodash/noop';
+import { goBack, push } from 'react-router-redux';
 import { PropTypes } from 'prop-types';
 import { connect } from 'react-redux';
 import Keypad from 'components/Keypad';
@@ -13,6 +13,7 @@ import {
   insertCard,
   ejectCard,
   askForPin,
+  askForAbort,
 } from './hardwareActions';
 import { enterPinDigit, correctPinDigit, checkPin } from '../Pin/pinActions';
 import { confirmWithdrawal } from '../Cash/cashActions';
@@ -20,6 +21,22 @@ import { confirmWithdrawal } from '../Cash/cashActions';
 import styles from './hardware.scss';
 
 class Hardware extends PureComponent {
+  // I'm not sure harware should be so smart
+  handleCancel() {
+    const {
+      abortMode,
+      onCancel,
+      onAbort,
+    } = this.props;
+
+    if (!abortMode) {
+      onCancel();
+    } else {
+      onAbort();
+    }
+  }
+
+  // I'm not sure harware should be so smart
   handleConfirm() {
     const {
       interactiveMode,
@@ -28,9 +45,15 @@ class Hardware extends PureComponent {
       onConfirm,
       handlePin,
       giveCash,
+      abortMode,
+      onContinue,
     } = this.props;
 
-    // I'm not sure harware should be so smart
+    if (abortMode) {
+      onContinue();
+      return;
+    }
+
     if (interactiveMode) {
       onConfirm();
       if (pinStatus === 'input') {
@@ -46,12 +69,14 @@ class Hardware extends PureComponent {
       plugged,
       onCardInserted, onKeyPressed, onDelPressed,
     } = this.props;
+    // I prefer @autobind decorators in real production projects
     const handleConfirm = () => this.handleConfirm();
+    const handleCancel = () => this.handleCancel();
 
     return (
       <div className={styles.hardware}>
         <Keypad handleKey={onKeyPressed} handleDel={onDelPressed} />
-        <YNpanel onCancel={_noop} onConfirm={handleConfirm} />
+        <YNpanel onCancel={handleCancel} onConfirm={handleConfirm} />
         <Receiver isPlugged={plugged} handlePlug={onCardInserted} />
       </div>
     );
@@ -59,6 +84,7 @@ class Hardware extends PureComponent {
 }
 
 Hardware.propTypes = {
+  abortMode: PropTypes.bool.isRequired,
   interactiveMode: PropTypes.bool.isRequired,
   plugged: PropTypes.bool.isRequired,
   cashConfirmed: PropTypes.bool.isRequired,
@@ -67,6 +93,9 @@ Hardware.propTypes = {
   giveCash: PropTypes.func.isRequired,
   onCardInserted: PropTypes.func.isRequired,
   onConfirm: PropTypes.func.isRequired,
+  onContinue: PropTypes.func.isRequired,
+  onCancel: PropTypes.func.isRequired,
+  onAbort: PropTypes.func.isRequired,
   onKeyPressed: PropTypes.func.isRequired,
   onDelPressed: PropTypes.func.isRequired,
 };
@@ -75,6 +104,16 @@ const connector = connect(
   ({ hardware, pin: { status }, cash: { confirmed } }) =>
     ({ ...hardware, pinStatus: status, cashConfirmed: confirmed }),
   dispatch => ({
+    onCancel: () => {
+      dispatch(askForAbort());
+    },
+    onContinue: () => {
+      dispatch(goBack());
+    },
+    onAbort: () => {
+      dispatch(push('/'));
+      dispatch(ejectCard());
+    },
     giveCash: () => {
       dispatch(confirmWithdrawal());
       dispatch(ejectCard());
