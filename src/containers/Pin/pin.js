@@ -19,7 +19,7 @@ const Pin = ({ pinCode, status, errors }) => (
     PINCODE: {(new Array(pinCode.length)).fill('*')}
     {
       status === 'pending'
-        && <div className={styles.wait} />
+        && <div className={styles.wait}>PIN is checking</div>
     }
   </div>
 );

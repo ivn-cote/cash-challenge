@@ -1,4 +1,5 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import { Link, Route } from 'react-router-dom';
 import { PropTypes } from 'prop-types';
 import { urlPaths } from '../../routes';
@@ -10,8 +11,9 @@ const AbortBtn = () => (
   </div>
 );
 
-const Screen = ({ children }) => (
+const Screen = ({ children, waitMode }) => (
   <div className={styles.screen}>
+    {waitMode && <div className={styles.waitScreen} />}
     {children}
     <Route path={urlPaths.withdrawal} component={AbortBtn} />
     <Route path={urlPaths.pin} component={AbortBtn} />
@@ -19,7 +21,14 @@ const Screen = ({ children }) => (
 );
 
 Screen.propTypes = {
+  waitMode: PropTypes.bool.isRequired,
   children: PropTypes.element.isRequired,
 };
 
-export default Screen;
+
+const connector = connect(
+  ({ screen }) => ({ ...screen }),
+  () => ({}),
+);
+
+export default connector(Screen);

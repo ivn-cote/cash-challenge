@@ -1,6 +1,8 @@
 import { push } from 'react-router-redux';
 import { urlPaths } from '../../routes';
 
+import { setWait } from '../Screen/screenActions';
+
 export const PIN_DIGIT_ENTER = 'PIN_DIGIT_ENTER';
 export const PIN_BACKSPACE = 'PIN_BACKSPACE';
 export const PIN_CHECK_STARTED = 'PIN_CHECK_STARTED';
@@ -36,13 +38,17 @@ const pinChecker = pinCode =>
 
 export const checkPin = (callback) => (dispatch, getState) => {
   dispatch({ type: PIN_CHECK_STARTED });
+  dispatch(setWait(true));
+
   return pinChecker(getState().pin.pinCode.join(''))
     .then(() => {
+      dispatch(setWait(false));
       dispatch({ type: PIN_CHECK_SUCCESS });
       dispatch(push(urlPaths.withdrawal));
       callback();
     })
     .catch((errMsg) => {
+      dispatch(setWait(false));
       dispatch({
         type: PIN_CHECK_FAILURE,
         payload: errMsg,

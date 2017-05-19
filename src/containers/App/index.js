@@ -4,7 +4,7 @@ import React from 'react';
 import { Route, Switch } from 'react-router-dom';
 import Helmet from 'react-helmet';
 import _ from 'lodash';
-import Screen from 'components/Screen';
+import Screen from '../Screen';
 import config from '../../config';
 import routes from '../../routes';
 // Import your global styles here

@@ -1,3 +1,5 @@
+$highest-z-index: 10;
+
 .screen {
   position: relative;
   font-family: monospace;
@@ -9,6 +11,27 @@
   margin: 20px 0;
   color: rgb(49, 148, 49);
   padding: 30px;
+}
+
+.waitScreen {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0.5;
+  background-color: #000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: $highest-z-index;
+
+  &:before {
+    display: block;
+    content: 'Please wait';
+    color: #fff;
+    font-size: 14px;
+  }
 }
 
 .abortLink {
