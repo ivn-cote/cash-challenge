@@ -115,8 +115,7 @@ const connector = connect(
       dispatch(ejectCard());
     },
     giveCash: () => {
-      dispatch(confirmWithdrawal());
-      dispatch(ejectCard());
+      dispatch(confirmWithdrawal(ejectCard));
     },
     handlePin: onOk => dispatch(checkPin(onOk)),
     onConfirm: () => {
