@@ -1,4 +1,5 @@
 .screen {
+  position: relative;
   font-family: monospace;
   height: 400px;
   width: 100%;
@@ -8,4 +9,13 @@
   margin: 20px 0;
   color: rgb(49, 148, 49);
   padding: 30px;
+}
+
+.abortLink {
+  position: absolute;
+  right: 0;
+  bottom: 100px;
+  padding: 20px;
+  background-color: gray;
+  border-radius: 4px 0 0 4px;
 }
