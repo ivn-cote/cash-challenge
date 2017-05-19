@@ -19,16 +19,31 @@ export default (state = initialState, action) => {
   switch (action.type) {
     case PIN_DIGIT_ENTER:
       return pinCode.length < 4
-        ? _.assign({}, state, { pinCode: state.pinCode.concat(action.payload) })
+        ? _.assign({}, state, {
+          pinCode: state.pinCode.concat(action.payload),
+          errors: {},
+        })
         : state;
+
     case PIN_BACKSPACE:
       return pinCode.length > 0
-        ? _.assign({}, state, { pinCode: state.pinCode.slice(0, -1), status: 'input' })
+        ? _.assign({}, state, {
+          pinCode: state.pinCode.slice(0, -1),
+          status: 'input',
+          errors: {},
+        })
         : state;
+
     case PIN_CHECK_STARTED:
       return _.assign({}, state, { status: 'pending' });
+
     case PIN_CHECK_SUCCESS:
-      return _.assign({}, state, { status: 'success', pinCode: [] });
+      return _.assign({}, state, {
+        status: 'success',
+        pinCode: [],
+        errors: {},
+      });
+
     case PIN_CHECK_FAILURE:
       return _.assign({}, state, {
         pinCode: [],
